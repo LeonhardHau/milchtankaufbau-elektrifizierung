@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Mobilität in der Milchlogistik | HTL Ried</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #CC0000;
+      --red-dark: #990000;
+      --red-light: #F5E5E5;
+      --white: #FFFFFF;
+      --gray-light: #F7F7F7;
+      --gray: #E8E8E8;
+      --gray-mid: #999999;
+      --dark: #1A1A1A;
+      --text: #333333;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: var(--white);
+      border-bottom: 3px solid var(--red);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+    }
+
+    .nav-logo-badge {
+      background: var(--red);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-logo-text {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+
+    .nav-logo-sub {
+      font-size: 0.7rem;
+      color: var(--gray-mid);
+      font-weight: 400;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    nav a.nav-link {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    nav a.nav-link:hover {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid var(--red);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-left: 1.2rem;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.3rem 0.65rem;
+      color: var(--red);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .lang-btn.active {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .lang-divider {
+      width: 1px;
+      background: var(--red);
+      height: 100%;
+      align-self: stretch;
+    }
+
+    /* Mobile hamburger */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      margin-top: 64px;
+      min-height: calc(100vh - 64px);
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    #hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0) 100%);
+      z-index: 1;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2;
+      padding: 5rem 3rem 4rem 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 2px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    .hero-school-badge {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      margin-bottom: 1.1rem;
+      align-self: flex-start;
+    }
+
+    #hero h1 {
+      font-size: clamp(2rem, 3.8vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    #hero h1 em {
+      display: block;
+      font-style: normal;
+      color: #cc2222;
+    }
+
+    .hero-subtitle {
+      margin-top: 0.9rem;
+      font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.65;
+      max-width: 480px;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Right stats panel */
+    .hero-stats-bar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      background: var(--red);
+    }
+
+    .hero-stat-block {
+      flex: 1;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-stat-block:last-child {
+      border-bottom: none;
+    }
+
+    .hero-stat-num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .hero-stat-lbl {
+      margin-top: 0.35rem;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.78rem 1.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.18s, box-shadow 0.18s, background 0.18s, color 0.18s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-red {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+
+    .btn-red:hover {
+      background: var(--red-dark);
+      border-color: var(--red-dark);
+      box-shadow: 0 6px 20px rgba(204, 0, 0, 0.4);
+    }
+
+    .btn-white {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-white:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.7);
+      color: #fff;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    @media (max-width: 860px) {
+      #hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      #hero-overlay {
+        inset: 0;
+      }
+
+      .hero-left {
+        padding: 3rem 1.5rem 2rem;
+      }
+
+      .hero-stats-bar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .hero-stat-block {
+        flex: 1 1 50%;
+        border-bottom: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 1.2rem 1.4rem;
+      }
+
+      .hero-stat-block:nth-child(even) {
+        border-right: none;
+      }
+
+      .hero-stat-num {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* ─── STATS BAR ─── */
+    #stats {
+      background: var(--gray-light);
+      border-bottom: 1px solid var(--gray);
+      padding: 2.8rem 2rem;
+    }
+
+    .stats-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+    }
+
+    .stat-lbl {
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--gray-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .section-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.7rem;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .section-lead {
+      font-size: 1.05rem;
+      color: #555;
+      max-width: 640px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    /* alt background */
+    section.bg-light {
+      background: var(--gray-light);
+    }
+
+    section.bg-red {
+      background: var(--red);
+      color: #fff;
+    }
+
+    section.bg-red h2,
+    section.bg-red .section-tag,
+    section.bg-red .section-lead {
+      color: #fff;
+    }
+
+    /* ─── TWO-COLUMN LAYOUT ─── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media (max-width: 720px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ─── CARDS ─── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.4rem;
+      margin-top: 2.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--gray);
+      border-radius: 10px;
+      padding: 1.8rem;
+      transition: box-shadow 0.22s, transform 0.22s;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 30px rgba(204, 0, 0, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--red-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.875rem;
+      color: #666;
+      line-height: 1.65;
+    }
+
+    /* bg-light cards */
+    section.bg-light .card {
+      background: #fff;
+    }
+
+    /* ─── COMPARISON TABLE ─── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .compare-table th {
+      background: var(--red);
+      color: #fff;
+      padding: 0.9rem 1.2rem;
+      text-align: left;
+      font-weight: 700;
+    }
+
+    .compare-table th:not(:first-child) {
+      text-align: center;
+    }
+
+    .compare-table td {
+      padding: 0.85rem 1.2rem;
+      border-bottom: 1px solid var(--gray);
+    }
+
+    .compare-table td:not(:first-child) {
+      text-align: center;
+    }
+
+    .compare-table tr:nth-child(even) td {
+      background: var(--gray-light);
+    }
+
+    .compare-table .winner {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    /* ─── SPECS GRID ─── */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .spec-item {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+    }
+
+    section:not(.bg-red) .spec-item {
+      background: #fff;
+      border: 1px solid var(--gray);
+    }
+
+    .spec-key {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+      margin-bottom: 0.3rem;
+    }
+
+    .spec-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    section:not(.bg-red) .spec-val {
+      color: var(--red);
+    }
+
+    /* ─── TEAM ─── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+    }
+
+    .team-card {
+      background: #fff;
+      border: 1px solid var(--gray);
+      border-radius: 10px;
+      padding: 1.8rem 1.6rem;
+      text-align: center;
+      transition: box-shadow 0.22s;
+    }
+
+    .team-card:hover {
+      box-shadow: 0 6px 24px rgba(204, 0, 0, 0.1);
+    }
+
+    .team-avatar {
+      width: 72px;
+      height: 72px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: #fff;
+      margin: 0 auto 1rem;
+      font-weight: 800;
+    }
+
+    .team-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.2rem;
+    }
+
+    .team-role {
+      font-size: 0.8rem;
+      color: var(--red);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-desc {
+      font-size: 0.82rem;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    .team-email {
+      display: block;
+      margin-top: 0.7rem;
+      font-size: 0.78rem;
+      color: var(--red);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .team-email:hover {
+      text-decoration: underline;
+    }
+
+    /* ─── PARTNER LOGOS AREA ─── */
+    .partners-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 2rem;
+      align-items: stretch;
+    }
+
+    .partner-item {
+      background: #fff;
+      border: 1px solid var(--gray);
+      border-radius: 8px;
+      padding: 1.2rem 1.8rem;
+      flex: 1 1 180px;
+      min-width: 160px;
+      text-align: center;
+    }
+
+    .partner-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .partner-role {
+      font-size: 0.78rem;
+      color: #888;
+    }
+
+    /* ─── TIMELINE ─── */
+    .timeline {
+      margin-top: 2.5rem;
+      position: relative;
+      padding-left: 2.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.6rem;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--red);
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 2.2rem;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 0.4rem;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--red);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--red);
+    }
+
+    .tl-date {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-bottom: 0.2rem;
+    }
+
+    .tl-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .tl-desc {
+      font-size: 0.875rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* ─── CALLOUT BOX ─── */
+    .callout {
+      background: var(--red-light);
+      border-left: 4px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      padding: 1.2rem 1.6rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: var(--dark);
+      line-height: 1.65;
+    }
+
+    .callout strong {
+      color: var(--red);
+    }
+
+    /* ─── DETAILS / ACCORDION ─── */
+    .reder-details {
+      border: 1px solid var(--gray);
+      border-radius: 8px;
+      margin-top: 1.2rem;
+      overflow: hidden;
+    }
+
+    .reder-details summary {
+      cursor: pointer;
+      padding: 1.2rem 1.4rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--dark);
+      background: #fff;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      transition: background 0.18s;
+    }
+
+    .reder-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .reder-details summary::after {
+      content: '+';
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--red);
+      transition: transform 0.25s;
+    }
+
+    .reder-details[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .reder-details summary:hover {
+      background: var(--red-light);
+    }
+
+    .reder-details-body {
+      padding: 1.4rem;
+      border-top: 1px solid var(--gray);
+      background: #fff;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      color: rgba(255, 255, 255, 0.55);
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    footer strong {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    footer a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    /* ─── DIVIDER ─── */
+    .red-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--red);
+      margin: 1rem 0 1.8rem;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav ul {
+        display: none;
+      }
+
+      nav ul.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-top: 1px solid var(--gray);
+        padding: 1rem 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        z-index: 199;
+      }
+
+      nav ul.open li {
+        width: 100%;
+      }
+
+      nav ul.open a.nav-link {
+        display: block;
+        padding: 0.7rem 0;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 680px) {
+      #team .reveal>div[style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* Accessibility */
+    :focus-visible {
+      outline: 3px solid var(--red);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">
+      <div>
+        <div class="nav-logo-text" data-de="E-Mobilität Milchlogistik" data-en="E-Mobility Milk Logistics">E-Mobilität
+          Milchlogistik</div>
+        <div class="nav-logo-sub">HTL Ried im Innkreis</div>
+      </div>
+    </a>
+    <ul id="nav-list">
+      <li><a href="#about" class="nav-link" data-de="Projekt" data-en="Project">Projekt</a></li>
+      <li><a href="#istzustand" class="nav-link" data-de="Ist-Zustand" data-en="Current State">Ist-Zustand</a></li>
+      <li><a href="#loesung" class="nav-link" data-de="Lösung" data-en="Solution">Lösung</a></li>
+      <li><a href="#zahlen" class="nav-link" data-de="Ergebnisse" data-en="Results">Ergebnisse</a></li>
+      <li><a href="#team" class="nav-link" data-de="Team" data-en="Team">Team</a></li>
+      <li><a href="#partner" class="nav-link" data-de="Partner" data-en="Partners">Partner</a></li>
+      <li>
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="btn-de" onclick="setLang('de')">DE</button>
+          <div class="lang-divider"></div>
+          <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        </div>
+      </li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <video id="hero-video" autoplay muted loop playsinline>
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+    <div id="hero-overlay"></div>
+    <div class="hero-left">
+      <div class="hero-school-badge">HTL Ried im Innkreis · Diplomarbeit 2025/26</div>
+      <div class="hero-eyebrow" data-de="Maschineningenieurwesen · Agrar &amp; Umwelttechnik"
+        data-en="Mechanical Engineering · Agricultural &amp; Environmental Technology">Maschineningenieurwesen · Agrar
+        &amp; Umwelttechnik</div>
+      <h1>
+        <span data-de="E-Mobilität in der" data-en="E-Mobility in">E-Mobilität in der</span>
+        <em data-de="Milchlogistik" data-en="Milk Logistics">Milchlogistik</em>
+      </h1>
+      <p class="hero-subtitle" data-de="Hydraulik raus, Elektromotoren rein. In Kooperation mit Reder Transporte GmbH."
+        data-en="Replacing hydraulics with electric motors. In cooperation with Reder Transporte GmbH.">Hydraulik raus,
+        Elektromotoren rein. In Kooperation mit Reder Transporte GmbH.</p>
+    </div>
+    <div class="hero-stats-bar">
+      <div class="hero-stat-block">
+        <div class="hero-stat-num">~20 t</div>
+        <div class="hero-stat-lbl" data-de="CO₂-Einsparung pro Jahr" data-en="CO₂ savings per year">CO₂-Einsparung pro
+          Jahr</div>
+      </div>
+      <div class="hero-stat-block">
+        <div class="hero-stat-num">120.000 €</div>
+        <div class="hero-stat-lbl" data-de="Einsparung durch Eigenentwicklung"
+          data-en="Savings through in-house development">Einsparung durch Eigenentwicklung</div>
+      </div>
+      <div class="hero-stat-block">
+        <div class="hero-stat-num">466 kWh</div>
+        <div class="hero-stat-lbl" data-de="Hauptakku MAN eTGS" data-en="Main battery MAN eTGS">Hauptakku MAN eTGS</div>
+      </div>
+      <div class="hero-stat-block">
+        <div class="hero-stat-num">16.000 l</div>
+        <div class="hero-stat-lbl" data-de="Tankvolumen (3 Kammern)" data-en="Tank volume (3 chambers)">Tankvolumen (3
+          Kammern)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div id="stats">
+    <div class="stats-inner">
+      <div class="reveal">
+        <div class="stat-num" style="font-size:2rem;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+          </svg>
+        </div>
+        <div class="stat-lbl" data-de="Elektrischer Pumpenantrieb via ePTO — Hydraulik vollständig ersetzt"
+          data-en="Electric pump drive via ePTO — hydraulics fully replaced">Elektrischer Pumpenantrieb via ePTO —
+          Hydraulik vollständig ersetzt</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="17 1 21 5 17 9" />
+            <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+            <polyline points="7 23 3 19 7 15" />
+            <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+          </svg>
+        </div>
+        <div class="stat-lbl" data-de="DC/AC-Wandlung — Hochvolt-Gleichstrom des LKW direkt für Aufbaumotoren nutzbar"
+          data-en="DC/AC conversion — truck high-voltage DC directly usable for body motors">DC/AC-Wandlung —
+          Hochvolt-Gleichstrom des LKW direkt für Aufbaumotoren nutzbar</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 20h.01" />
+            <path d="M7 20v-4" />
+            <path d="M12 20v-8" />
+            <path d="M17 20V8" />
+            <path d="M22 4v16" />
+          </svg>
+        </div>
+        <div class="stat-lbl" data-de="1:1 Modellaufbau — vollständig selbst konstruiert und gefertigt"
+          data-en="1:1 scale model — fully designed and manufactured in-house">1:1 Modellaufbau — vollständig selbst
+          konstruiert und gefertigt</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="9" width="18" height="11" rx="2" />
+            <path d="M20 13h2v3h-2" />
+            <line x1="7" y1="14" x2="7" y2="18" />
+            <line x1="11" y1="14" x2="11" y2="18" />
+            <line x1="15" y1="14" x2="15" y2="18" />
+          </svg>
+        </div>
+        <div class="stat-lbl" data-de="5-Akku-Pack-System — Serienentwicklung bei MAN angestoßen"
+          data-en="5-battery-pack system — series development initiated at MAN">5-Akku-Pack-System — Serienentwicklung
+          bei MAN angestoßen</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLAINER -->
+  <section id="about" style="padding-bottom:0;">
+    <div class="section-inner">
+      <div class="section-tag reveal" data-de="Kurz erklärt" data-en="In a Nutshell">Kurz erklärt</div>
+      <h2 class="reveal" data-de="Worum geht es?" data-en="What is this about?">Worum geht es?</h2>
+      <div class="red-divider reveal"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-bottom:4rem;">
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">🚛</div>
+          <h3 data-de="Der Milchtank-LKW" data-en="The Milk Tanker">Der Milchtank-LKW</h3>
+          <p data-de="Ein Milchtank-LKW fährt jeden Tag zu 20 oder mehr Bauernhöfen und holt die frisch gemolkene Milch ab — bis zu 16.000 Liter pro Tour."
+            data-en="A milk tanker visits 20 or more farms every day to collect freshly milked milk — up to 16,000 litres per tour.">
+            Ein Milchtank-LKW fährt jeden Tag zu 20 oder mehr Bauernhöfen und holt die frisch gemolkene Milch ab — bis
+            zu 16.000 Liter pro Tour.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">💧</div>
+          <h3 data-de="Die Pumpe" data-en="The Pump">Die Pumpe</h3>
+          <p data-de="Am Hof angekommen, saugt eine Pumpe die Milch direkt aus dem Kühltank des Bauern in den Tank des LKW — ähnlich wie ein großer Staubsauger für Flüssigkeiten."
+            data-en="Arriving at the farm, a pump draws the milk directly from the farmer's cooling tank into the truck's tank — like a large vacuum cleaner for liquids.">
+            Am Hof angekommen, saugt eine Pumpe die Milch direkt aus dem Kühltank des Bauern in den Tank des LKW —
+            ähnlich wie ein großer Staubsauger für Flüssigkeiten.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">⚙️</div>
+          <h3 data-de="Das bisherige Problem" data-en="The Previous Problem">Das bisherige Problem</h3>
+          <p data-de="Diese Pumpe wurde bisher hydraulisch angetrieben — also über Öldruck, wie bei einem Bagger. Das verbraucht mehr als doppelt so viel Energie wie nötig."
+            data-en="This pump was previously driven hydraulically — via oil pressure, like an excavator. That consumes more than twice the energy actually needed.">
+            Diese Pumpe wurde bisher hydraulisch angetrieben — also über Öldruck, wie bei einem Bagger. Das verbraucht
+            mehr als doppelt so viel Energie wie nötig.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">⚡</div>
+          <h3 data-de="Die Lösung" data-en="The Solution">Die Lösung</h3>
+          <p data-de="Dieses Projekt ersetzt die Hydraulik durch Elektromotoren — direkt gespeist aus dem Akku des E-LKWs. Das spart 55 % Energie und macht den Betrieb leiser und wartungsärmer."
+            data-en="This project replaces the hydraulics with electric motors — powered directly from the e-truck's battery. That saves 55% energy and makes operation quieter and lower-maintenance.">
+            Dieses Projekt ersetzt die Hydraulik durch Elektromotoren — direkt gespeist aus dem Akku des E-LKWs. Das
+            spart 55 % Energie und macht den Betrieb leiser und wartungsärmer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section style="padding-top:0;">
+    <div class="section-inner">
+      <div class="section-tag reveal" data-de="Das Projekt" data-en="The Project">Das Projekt</div>
+      <h2 class="reveal" data-de="Warum elektrifizieren?" data-en="Why Electrify?">Warum elektrifizieren?</h2>
+      <div class="red-divider reveal"></div>
+      <p class="section-lead reveal" style="margin-bottom:1.5rem;"
+        data-de="Die Nachfrage nach Elektrolastwagen steigt rasant. Die Firma Reder Transporte wollte frühzeitig auf E-Mobilität umsteigen und nutzte die Chance, einen herkömmlichen Diesel-Milchtransporter auf elektrischen Antrieb umzurüsten."
+        data-en="The demand for electric trucks is growing rapidly. Reder Transporte wanted to switch to e-mobility early and seized the opportunity to convert a conventional diesel milk tanker to electric drive.">
+        Die Nachfrage nach Elektrolastwagen steigt rasant. Die Firma Reder Transporte wollte frühzeitig auf E-Mobilität
+        umsteigen und nutzte die Chance, einen herkömmlichen Diesel-Milchtransporter auf elektrischen Antrieb
+        umzurüsten.</p>
+      <div class="callout reveal">
+        <strong data-de="Ziel:" data-en="Goal:">Ziel:</strong>
+        <span
+          data-de=" Die Energiemenge für den Pumpenantrieb so gering wie möglich halten — um die maximale Reichweite des E-LKWs zu sichern und Touren der Firma Reder auf elektrische Antriebstechnik umzustellen."
+          data-en=" Minimize the energy required for the pump system — to maximize the electric truck's range and convert Reder's routes to electric drive technology.">
+          Die Energiemenge für den Pumpenantrieb so gering wie möglich halten — um die maximale Reichweite des E-LKWs zu
+          sichern und Touren der Firma Reder auf elektrische Antriebstechnik umzustellen.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- IST-ZUSTAND -->
+  <section id="istzustand" class="bg-light">
+    <div class="section-inner">
+      <div class="section-tag reveal" data-de="Ist-Zustand" data-en="Current State">Ist-Zustand</div>
+      <h2 class="reveal" data-de="Der herkömmliche Milchtankaufbau" data-en="The Conventional Milk Tank Setup">Der
+        herkömmliche Milchtankaufbau</h2>
+      <div class="red-divider reveal"></div>
+      <p class="section-lead reveal"
+        data-de="Milchtransporter sind spezielle Fahrzeugaufbauten mit einem 16.000-Liter-Tank (3 Kammern à 5.300 Liter) und zwei Pumpen. Im konventionellen Betrieb werden alle Komponenten hydraulisch angetrieben — mit entsprechend hohem Energieverbrauch."
+        data-en="Milk tankers are special vehicle bodies with a 16,000-liter tank (3 chambers of 5,300 liters each) and two pumps. In conventional operation, all components are hydraulically driven — with correspondingly high energy consumption.">
+        Milchtransporter sind spezielle Fahrzeugaufbauten mit einem 16.000-Liter-Tank (3 Kammern à 5.300 Liter) und zwei
+        Pumpen. Im konventionellen Betrieb werden alle Komponenten hydraulisch angetrieben — mit entsprechend hohem
+        Energieverbrauch.</p>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">🥛</div>
+          <h3 data-de="Milchtank" data-en="Milk Tank">Milchtank</h3>
+          <p data-de="16.000 Liter Gesamtvolumen, aufgeteilt in 3 Kammern à 5.300 Liter aus Edelstahl. Tägliche Sammelmenge: ~50.000 Liter von 20 Bauernhöfen (Ø 2.500 l/Betrieb)."
+            data-en="16,000 liters total volume, divided into 3 stainless steel chambers of 5,300 liters each. Daily collection volume: ~50,000 liters from 20 farms (avg. 2,500 l/farm).">
+            16.000 Liter Gesamtvolumen, aufgeteilt in 3 Kammern à 5.300 Liter aus Edelstahl. Tägliche Sammelmenge:
+            ~50.000 Liter von 20 Bauernhöfen (Ø 2.500 l/Betrieb).</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">💨</div>
+          <h3 data-de="Vakuumpumpe" data-en="Vacuum Pump">Vakuumpumpe</h3>
+          <p data-de="Erzeugt einen Unterdruck von 0,71 bar zum Ansaugen der Milch. Max. Drehzahl: 1.450 U/min. Unterstützt die Kreiselpumpe bei Druckverlust und beim Leerpumpen des Bauern-Tanks."
+            data-en="Creates a vacuum of 0.71 bar to draw in milk. Max. speed: 1,450 rpm. Supports the centrifugal pump when pressure drops and when emptying the farm tank.">
+            Erzeugt einen Unterdruck von 0,71 bar zum Ansaugen der Milch. Max. Drehzahl: 1.450 U/min. Unterstützt die
+            Kreiselpumpe bei Druckverlust und beim Leerpumpen des Bauern-Tanks.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">⚙️</div>
+          <h3 data-de="Kreiselpumpe (hydraulisch)" data-en="Centrifugal Pump (hydraulic)">Kreiselpumpe (hydraulisch)
+          </h3>
+          <p data-de="Förderleistung: max. 1.100 l/min. Wird über ein Hydraulikregelventil gesteuert und sorgt für die Hauptförderung der Milch. Energiebedarf: 13,2 kW — deutlich über dem elektrischen Äquivalent."
+            data-en="Flow rate: max. 1,100 l/min. Controlled via a hydraulic control valve, it handles the main milk delivery. Power consumption: 13.2 kW — significantly above the electric equivalent.">
+            Förderleistung: max. 1.100 l/min. Wird über ein Hydraulikregelventil gesteuert und sorgt für die
+            Hauptförderung der Milch. Energiebedarf: 13,2 kW — deutlich über dem elektrischen Äquivalent.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">🖥️</div>
+          <h3 data-de="SPS-Steuerung (B&amp;R)" data-en="PLC Control (B&amp;R)">SPS-Steuerung (B&amp;R)</h3>
+          <p data-de="Smart-Modul von Schwarte Jansky übergibt analoge Daten (0–10 V) an die B&amp;R SPS. Diese steuert Vakuumpumpe, Kreiselpumpe und die Drei-Kammer-Ventile vollautomatisch."
+            data-en="Smart module from Schwarte Jansky passes analogue data (0–10 V) to the B&amp;R PLC, which automatically controls the vacuum pump, centrifugal pump, and three-chamber valves.">
+            Smart-Modul von Schwarte Jansky übergibt analoge Daten (0–10 V) an die B&amp;R SPS. Diese steuert
+            Vakuumpumpe, Kreiselpumpe und die Drei-Kammer-Ventile vollautomatisch.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">🔧</div>
+          <h3 data-de="Luftabscheider" data-en="Air Separator">Luftabscheider</h3>
+          <p data-de="Wesentlicher Bestandteil mit strengen Vorschriften: Betriebsstand (BN) 600 mm, Mindeststand (DN) 540 mm, Minimumstand (AP) 60 mm. Eichungsrelevant — Änderungen erfordern Neueichung."
+            data-en="Key component with strict regulations: operating level (BN) 600 mm, min. level (DN) 540 mm, minimum level (AP) 60 mm. Calibration-relevant — changes require re-calibration.">
+            Wesentlicher Bestandteil mit strengen Vorschriften: Betriebsstand (BN) 600 mm, Mindeststand (DN) 540 mm,
+            Minimumstand (AP) 60 mm. Eichungsrelevant — Änderungen erfordern Neueichung.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">⚠️</div>
+          <h3 data-de="Das Problem: Hydraulische Verluste" data-en="The Problem: Hydraulic Losses">Das Problem:
+            Hydraulische Verluste</h3>
+          <p data-de="Hydrauliksysteme wandeln mechanische Energie mehrfach um — von der Pumpe über das Öl bis zum Aktor. Bei jeder Umwandlung entstehen Reibungs- und Strömungsverluste. Elektromotoren übertragen Energie hingegen direkt und mit deutlich höherem Wirkungsgrad."
+            data-en="Hydraulic systems convert mechanical energy multiple times — from the pump through the oil to the actuator. Each conversion causes friction and flow losses. Electric motors, by contrast, transmit energy directly and with significantly higher efficiency.">
+            Hydrauliksysteme wandeln mechanische Energie mehrfach um — von der Pumpe über das Öl bis zum Aktor. Bei
+            jeder Umwandlung entstehen Reibungs- und Strömungsverluste. Elektromotoren übertragen Energie hingegen
+            direkt und mit deutlich höherem Wirkungsgrad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LÖSUNG -->
+  <section id="loesung">
+    <div class="section-inner">
+      <div class="section-tag reveal" data-de="Unsere Lösung" data-en="Our Solution">Unsere Lösung</div>
+      <h2 class="reveal" data-de="Vollständige Elektrifizierung des Pumpenantriebs"
+        data-en="Full Electrification of the Pump Drive">Vollständige Elektrifizierung des Pumpenantriebs</h2>
+      <div class="red-divider reveal"></div>
+      <p class="section-lead reveal"
+        data-de="Nach einer umfangreichen Nutzwertanalyse wurde die HV-Schnittstelle (ePTO) des MAN eTGS mit Wechselstrommotoren und ABB-Frequenzumrichtern als optimale Lösung identifiziert. Die Eichung bleibt vollständig erhalten."
+        data-en="After an extensive utility analysis, the HV interface (ePTO) of the MAN eTGS combined with AC motors and ABB frequency converters was identified as the optimal solution. Full calibration compliance is maintained.">
+        Nach einer umfangreichen Nutzwertanalyse wurde die HV-Schnittstelle (ePTO) des MAN eTGS mit Wechselstrommotoren
+        und ABB-Frequenzumrichtern als optimale Lösung identifiziert. Die Eichung bleibt vollständig erhalten.</p>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">🚛</div>
+          <h3>MAN eTGS 6×2-5</h3>
+          <p data-de="Gewählter Elektro-LKW nach Vergleich mit Volvo FE Electric und Mercedes E-Actros. Bietet eine HV-Schnittstelle (ePTO) und eine Hauptbatterie mit 466 kWh Kapazität."
+            data-en="Selected electric truck after comparison with Volvo FE Electric and Mercedes E-Actros. Provides a HV interface (ePTO) and a main battery with 466 kWh capacity.">
+            Gewählter Elektro-LKW nach Vergleich mit Volvo FE Electric und Mercedes E-Actros. Bietet eine
+            HV-Schnittstelle (ePTO) und eine Hauptbatterie mit 466 kWh Kapazität.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">⚡</div>
+          <h3 data-de="HV-Schnittstelle ePTO" data-en="HV Interface ePTO">HV-Schnittstelle ePTO</h3>
+          <p data-de="Hochvolt-Schnittstelle des MAN eTGS versorgt den Aufbau direkt mit elektrischer Energie. Kein separater Akku notwendig — direkter Anschluss an die Fahrzeugbatterie."
+            data-en="The MAN eTGS high-voltage interface powers the body directly with electrical energy. No separate battery required — direct connection to the vehicle battery.">
+            Hochvolt-Schnittstelle des MAN eTGS versorgt den Aufbau direkt mit elektrischer Energie. Kein separater Akku
+            notwendig — direkter Anschluss an die Fahrzeugbatterie.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">🔒</div>
+          <h3 data-de="Sicherheitskasten (FU-Kasten)" data-en="Safety Box (FU Box)">Sicherheitskasten (FU-Kasten)</h3>
+          <p data-de="Von Firma Kreuzer entwickelte Sicherheitskästen gewährleisten die elektrische Sicherheit gemäß ECE-R100. Trennschnittstelle, FU für Vakuumpumpe und FU für Kreiselpumpe integriert."
+            data-en="Safety boxes developed by Firma Kreuzer ensure electrical safety in accordance with ECE-R100. Includes disconnect interface, FU for vacuum pump, and FU for centrifugal pump.">
+            Von Firma Kreuzer entwickelte Sicherheitskästen gewährleisten die elektrische Sicherheit gemäß ECE-R100.
+            Trennschnittstelle, FU für Vakuumpumpe und FU für Kreiselpumpe integriert.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">🔄</div>
+          <h3 data-de="ABB ACS 280 Frequenzumrichter" data-en="ABB ACS 280 Frequency Converter">ABB ACS 280
+            Frequenzumrichter</h3>
+          <p data-de="Wandelt DC-Spannung der ePTO in geregelte AC-Spannung für die Elektromotoren um. Präzise Drehzahlregelung durch die B&amp;R SPS-Steuerung. Frequenzumrichter wurden von ABB gesponsert."
+            data-en="Converts DC voltage from the ePTO into regulated AC voltage for the electric motors. Precise speed control via B&amp;R PLC. Frequency converters were sponsored by ABB.">
+            Wandelt DC-Spannung der ePTO in geregelte AC-Spannung für die Elektromotoren um. Präzise Drehzahlregelung
+            durch die B&amp;R SPS-Steuerung. Frequenzumrichter wurden von ABB gesponsert.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">💨</div>
+          <h3 data-de="Eigenentwickelter Pumpenflansch" data-en="Custom-Developed Pump Flange">Eigenentwickelter
+            Pumpenflansch</h3>
+          <p data-de="Selbst konstruierter Pumpenflansch als Verbindung zwischen Elektromotor und bestehender Kreiselpumpe sowie Vakuumpumpe — ermöglicht die direkte elektrische Anbindung ohne Austausch der Pumpen."
+            data-en="Custom-designed pump flange connecting the electric motor to the existing centrifugal pump and vacuum pump — enabling direct electric integration without replacing the pumps.">
+            Selbst konstruierter Pumpenflansch als Verbindung zwischen Elektromotor und bestehender Kreiselpumpe sowie
+            Vakuumpumpe — ermöglicht die direkte elektrische Anbindung ohne Austausch der Pumpen.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon" style="display:none">📐</div>
+          <h3 data-de="1:1 Modellaufbau" data-en="1:1 Scale Model">1:1 Modellaufbau</h3>
+          <p data-de="Vollständig konstruierter 1:1 Modellrahmen zur Entwicklung und Erprobung, der in späterer Folge auf den MAN eTGS montiert werden kann. Alle Kabinen wurden konstruktiv entwickelt und gefertigt."
+            data-en="Fully designed 1:1 model frame for development and testing, which can subsequently be mounted on the MAN eTGS. All cabins were constructively developed and manufactured.">
+            Vollständig konstruierter 1:1 Modellrahmen zur Entwicklung und Erprobung, der in späterer Folge auf den MAN
+            eTGS montiert werden kann. Alle Kabinen wurden konstruktiv entwickelt und gefertigt.</p>
+        </div>
+      </div>
+
+      <!-- Meilensteine -->
+      <div style="margin-top:4rem;">
+        <div class="section-tag reveal" data-de="Projektverlauf" data-en="Project Timeline">Projektverlauf</div>
+        <h2 class="reveal" data-de="Von der Idee zur Umsetzung" data-en="From Idea to Implementation">Von der Idee zur
+          Umsetzung</h2>
+        <div class="red-divider reveal"></div>
+        <div class="timeline">
+          <div class="tl-item reveal">
+            <div class="tl-date" data-de="Jun. 2025 — Projektstart" data-en="Jun. 2025 — Project Start">Jun. 2025 —
+              Projektstart</div>
+            <div class="tl-title" data-de="Aufgabenstellung &amp; Einführung"
+              data-en="Task Definition &amp; Introduction">Aufgabenstellung &amp; Einführung</div>
+            <div class="tl-desc"
+              data-de="Sechswöchiges Praktikum bei Reder Transporte. Verständnis des herkömmlichen Aufbaus, Anforderungsanalyse durch die Werkstatt-Mitarbeiter, Recherche zu Elektro-LKW-Varianten."
+              data-en="Six-week internship at Reder Transporte. Understanding of the conventional setup, requirements analysis with workshop staff, research into electric truck variants.">
+              Sechswöchiges Praktikum bei Reder Transporte. Verständnis des herkömmlichen Aufbaus, Anforderungsanalyse
+              durch die Werkstatt-Mitarbeiter, Recherche zu Elektro-LKW-Varianten.</div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-date" data-de="Herbst 2025 — Konzeptphase" data-en="Autumn 2025 — Concept Phase">Herbst 2025
+              — Konzeptphase</div>
+            <div class="tl-title" data-de="Nutzwertanalyse &amp; Konzeptauswahl"
+              data-en="Utility Analysis &amp; Concept Selection">Nutzwertanalyse &amp; Konzeptauswahl</div>
+            <div class="tl-desc"
+              data-de="Vergleich von vier Konzepten (24V Bordnetz, Zusatzakku, Nebenantrieb, ePTO). Entscheidung für Wechselstrommotoren via HV-Schnittstelle ePTO mit ABB-Frequenzumrichtern."
+              data-en="Comparison of four concepts (24V on-board network, auxiliary battery, PTO, ePTO). Decision for AC motors via HV interface ePTO with ABB frequency converters.">
+              Vergleich von vier Konzepten (24V Bordnetz, Zusatzakku, Nebenantrieb, ePTO). Entscheidung für
+              Wechselstrommotoren via HV-Schnittstelle ePTO mit ABB-Frequenzumrichtern.</div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-date" data-de="Winter 2025/26 — Konstruktion" data-en="Winter 2025/26 — Construction">Winter
+              2025/26 — Konstruktion</div>
+            <div class="tl-title" data-de="Elektrische &amp; konstruktive Umsetzung"
+              data-en="Electrical &amp; Structural Implementation">Elektrische &amp; konstruktive Umsetzung</div>
+            <div class="tl-desc"
+              data-de="Aufbau des 1:1 Modellrahmens, Konstruktion aller Kabinen (Annahmekabine, Vakuumkabine, FU-Kasten), Schweißarbeiten, elektrische Verdrahtung und Parametrierung der Frequenzumrichter."
+              data-en="Construction of the 1:1 model frame, design of all cabins (intake cabin, vacuum cabin, FU box), welding, electrical wiring, and parameterization of the frequency converters.">
+              Aufbau des 1:1 Modellrahmens, Konstruktion aller Kabinen (Annahmekabine, Vakuumkabine, FU-Kasten),
+              Schweißarbeiten, elektrische Verdrahtung und Parametrierung der Frequenzumrichter.</div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-date" data-de="Frühjahr 2026 — Tests" data-en="Spring 2026 — Testing">Frühjahr 2026 — Tests
+            </div>
+            <div class="tl-title" data-de="Praxistests &amp; Datenerfassung"
+              data-en="Field Tests &amp; Data Collection">Praxistests &amp; Datenerfassung</div>
+            <div class="tl-desc"
+              data-de="Tourenversuche mit Diesel- und Elektrofahrzeug. Vergleichsmessungen Energieverbrauch. Optimierung der Anlaufzeit, Kühlung des Frequenzumrichters. Einreichung beim Bosch Innovationspreis."
+              data-en="Tour tests with diesel and electric vehicle. Comparative energy consumption measurements. Optimization of startup time, frequency converter cooling. Submission to the Bosch Innovation Award.">
+              Tourenversuche mit Diesel- und Elektrofahrzeug. Vergleichsmessungen Energieverbrauch. Optimierung der
+              Anlaufzeit, Kühlung des Frequenzumrichters. Einreichung beim Bosch Innovationspreis.</div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-date" data-de="März 2026 — Abschluss" data-en="March 2026 — Completion">März 2026 — Abschluss
+            </div>
+            <div class="tl-title" data-de="Abgabe der Diplomarbeit" data-en="Diploma Thesis Submission">Abgabe der
+              Diplomarbeit</div>
+            <div class="tl-desc"
+              data-de="Abgabe am 27.03.2026. Bereits 2 MAN eTGS bei MAN bestellt — Ankunft Ende 2026."
+              data-en="Submitted on 27.03.2026. Two MAN eTGS already ordered — delivery expected end of 2026.">Abgabe am
+              27.03.2026. Bereits 2 MAN eTGS bei MAN bestellt — Ankunft Ende 2026.</div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-date" data-de="Ende 2026 — Ausblick" data-en="End of 2026 — Outlook">Ende 2026 — Ausblick
+            </div>
+            <div class="tl-title" data-de="Fahrzeugankunft &amp; Serienentwicklung"
+              data-en="Vehicle Delivery &amp; Series Development">Fahrzeugankunft &amp; Serienentwicklung</div>
+            <div class="tl-desc"
+              data-de="Ankunft der 2 bestellten MAN eTGS. Parallel dazu läuft bei MAN die Serienentwicklung des 5-Akku-Pack-Systems — eine Eigenentwicklung, die aus diesem Projekt hervorging und mehr Reichweite ermöglicht."
+              data-en="Delivery of the 2 ordered MAN eTGS. In parallel, MAN is developing the series production of the 5-battery-pack system — an in-house development emerging from this project that enables greater range.">
+              Ankunft der 2 bestellten MAN eTGS. Parallel dazu läuft bei MAN die Serienentwicklung des
+              5-Akku-Pack-Systems — eine Eigenentwicklung, die aus diesem Projekt hervorging und mehr Reichweite
+              ermöglicht.</div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-date" data-de="2027 — Echtbetrieb" data-en="2027 — Live Operation">2027 — Echtbetrieb</div>
+            <div class="tl-title" data-de="Erste elektrische Milchtouren"
+              data-en="First Electric Milk Collection Tours">Erste elektrische Milchtouren</div>
+            <div class="tl-desc"
+              data-de="Geplanter Start der ersten regulären Milchsammeltouren mit den elektrifizierten MAN eTGS bei Reder Transporte — vollelektrisch, emissionsfrei, direkt aus dem Projektergebnis in den Alltagsbetrieb."
+              data-en="Planned start of the first regular milk collection tours with the electrified MAN eTGS at Reder Transporte — fully electric, emission-free, directly from the project outcome into everyday operations.">
+              Geplanter Start der ersten regulären Milchsammeltouren mit den elektrifizierten MAN eTGS bei Reder
+              Transporte — vollelektrisch, emissionsfrei, direkt aus dem Projektergebnis in den Alltagsbetrieb.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ERGEBNISSE / ZAHLEN -->
+  <section id="zahlen" class="bg-light">
+    <div class="section-inner">
+      <div class="section-tag reveal" data-de="Ergebnisse" data-en="Results">Ergebnisse</div>
+      <h2 class="reveal" data-de="Energieverbrauch &amp; Reichweite des MAN eTGS"
+        data-en="Energy Consumption &amp; Range of the MAN eTGS">Energieverbrauch &amp; Reichweite des MAN eTGS</h2>
+      <div class="red-divider reveal"></div>
+      <p class="section-lead reveal"
+        data-de="Die Testtour (177 km, St. Florian am Inn) wurde unter drei verschiedenen Außentemperaturen analysiert. Ergebnis: Die Tour ist in allen Szenarien problemlos elektrisch machbar."
+        data-en="The test tour (177 km, St. Florian am Inn) was analysed under three different outside temperatures. Result: the tour is feasible electrically in all scenarios.">
+        Die Testtour (177 km, St. Florian am Inn) wurde unter drei verschiedenen Außentemperaturen analysiert. Ergebnis:
+        Die Tour ist in allen Szenarien problemlos elektrisch machbar.</p>
+
+      <!-- Eckdaten -->
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;">
+        <div
+          style="background:#fff;border:1px solid var(--gray);border-radius:8px;padding:1rem 1.4rem;display:flex;align-items:center;gap:0.8rem;">
+          <span style="font-size:1.6rem;">🔋</span>
+          <div>
+            <div style="font-size:1.3rem;font-weight:900;color:var(--red);">466 kWh</div>
+            <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.07em;"
+              data-de="Akkukapazität MAN eTGS" data-en="Battery capacity MAN eTGS">Akkukapazität MAN eTGS</div>
+          </div>
+        </div>
+        <div
+          style="background:#fff;border:1px solid var(--gray);border-radius:8px;padding:1rem 1.4rem;display:flex;align-items:center;gap:0.8rem;">
+          <span style="font-size:1.6rem;">📍</span>
+          <div>
+            <div style="font-size:1.3rem;font-weight:900;color:var(--red);">177 km</div>
+            <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.07em;"
+              data-de="Testtour St. Florian am Inn" data-en="Test Tour St. Florian am Inn">Testtour St. Florian am Inn
+            </div>
+          </div>
+        </div>
+        <div
+          style="background:#fff;border:1px solid var(--gray);border-radius:8px;padding:1rem 1.4rem;display:flex;align-items:center;gap:0.8rem;">
+          <span style="font-size:1.6rem;">⚙️</span>
+          <div>
+            <div style="font-size:1.3rem;font-weight:900;color:var(--red);">23,9 kWh</div>
+            <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.07em;"
+              data-de="Milchsammelpumpe pro Tour" data-en="Milk collection pump per tour">Milchsammelpumpe pro Tour
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drei Temperatur-Szenarien -->
+      <div
+        style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-bottom:2.5rem;">
+
+        <!-- +10°C -->
+        <div class="card reveal" style="border-top:4px solid #f0a000;">
+          <div style="font-size:1.5rem;font-weight:900;margin-bottom:0.2rem;">+10 °C</div>
+          <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:1.2rem;"
+            data-de="Normalbetrieb" data-en="Normal Operation">Normalbetrieb</div>
+          <div style="display:flex;flex-direction:column;gap:0.55rem;font-size:0.85rem;">
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Verbrauch (Fahrt)" data-en="Consumption (Drive)">Verbrauch
+                (Fahrt)</span>
+              <strong>0,89 kWh/km</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Fahrbetrieb (177 km)" data-en="Driving (177 km)">Fahrbetrieb (177
+                km)</span>
+              <strong>157,53 kWh</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Milchsammelpumpe" data-en="Milk pump">Milchsammelpumpe</span>
+              <strong>23,91 kWh</strong>
+            </div>
+            <div
+              style="display:flex;justify-content:space-between;border-top:1px solid var(--gray);padding-top:0.5rem;">
+              <span style="color:var(--red);font-weight:700;" data-de="Gesamtverbrauch"
+                data-en="Total consumption">Gesamtverbrauch</span>
+              <strong style="color:var(--red);">181,44 kWh</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Verbleibende Kapazität" data-en="Remaining capacity">Verbleibende
+                Kapazität</span>
+              <strong>284,56 kWh (61 %)</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Theoret. Restreichweite" data-en="Theor. remaining range">Theoret.
+                Restreichweite</span>
+              <strong>≈ 278 km</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- -15°C -->
+        <div class="card reveal" style="border-top:4px solid var(--red);">
+          <div style="font-size:1.5rem;font-weight:900;margin-bottom:0.2rem;">−15 °C</div>
+          <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:1.2rem;"
+            data-de="Winterbetrieb (Worst Case)" data-en="Winter Operation (Worst Case)">Winterbetrieb (Worst Case)
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.55rem;font-size:0.85rem;">
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Verbrauch (Fahrt)" data-en="Consumption (Drive)">Verbrauch
+                (Fahrt)</span>
+              <strong>1,10 kWh/km</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Fahrbetrieb (177 km)" data-en="Driving (177 km)">Fahrbetrieb (177
+                km)</span>
+              <strong>194,70 kWh</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Milchsammelpumpe" data-en="Milk pump">Milchsammelpumpe</span>
+              <strong>23,91 kWh</strong>
+            </div>
+            <div
+              style="display:flex;justify-content:space-between;border-top:1px solid var(--gray);padding-top:0.5rem;">
+              <span style="color:var(--red);font-weight:700;" data-de="Gesamtverbrauch"
+                data-en="Total consumption">Gesamtverbrauch</span>
+              <strong style="color:var(--red);">218,61 kWh</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Verbleibende Kapazität" data-en="Remaining capacity">Verbleibende
+                Kapazität</span>
+              <strong>247,39 kWh (53 %)</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Theoret. Restreichweite" data-en="Theor. remaining range">Theoret.
+                Restreichweite</span>
+              <strong>≈ 169 km</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- +30°C -->
+        <div class="card reveal" style="border-top:4px solid #e07000;">
+          <div style="font-size:1.5rem;font-weight:900;margin-bottom:0.2rem;">+30 °C</div>
+          <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:1.2rem;"
+            data-de="Sommerbetrieb" data-en="Summer Operation">Sommerbetrieb</div>
+          <div style="display:flex;flex-direction:column;gap:0.55rem;font-size:0.85rem;">
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Verbrauch (Fahrt)" data-en="Consumption (Drive)">Verbrauch
+                (Fahrt)</span>
+              <strong>0,88 kWh/km</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Fahrbetrieb (177 km)" data-en="Driving (177 km)">Fahrbetrieb (177
+                km)</span>
+              <strong>155,76 kWh</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Milchsammelpumpe" data-en="Milk pump">Milchsammelpumpe</span>
+              <strong>23,91 kWh</strong>
+            </div>
+            <div
+              style="display:flex;justify-content:space-between;border-top:1px solid var(--gray);padding-top:0.5rem;">
+              <span style="color:var(--red);font-weight:700;" data-de="Gesamtverbrauch"
+                data-en="Total consumption">Gesamtverbrauch</span>
+              <strong style="color:var(--red);">179,67 kWh</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Verbleibende Kapazität" data-en="Remaining capacity">Verbleibende
+                Kapazität</span>
+              <strong>286,33 kWh (61 %)</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:#666;" data-de="Theoret. Restreichweite" data-en="Theor. remaining range">Theoret.
+                Restreichweite</span>
+              <strong>≈ 259 km</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Max. Tourenlänge Winterfall -->
+      <div class="reveal"
+        style="background:#fff;border:1px solid var(--gray);border-radius:12px;padding:2rem;margin-bottom:2rem;">
+        <div
+          style="font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin-bottom:0.6rem;"
+          data-de="Worst-Case-Berechnung · Winterfall −15 °C" data-en="Worst-Case Calculation · Winter −15 °C">
+          Worst-Case-Berechnung · Winterfall −15 °C</div>
+        <h3 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:1.2rem;"
+          data-de="Maximal realistisch fahrbare Tourenlänge" data-en="Maximum Realistic Tour Length">Maximal realistisch
+          fahrbare Tourenlänge</h3>
+        <div
+          style="display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem 0.3rem;font-size:0.82rem;color:#555;margin-bottom:1.4rem;">
+          <div style="background:var(--gray-light);border-radius:6px;padding:0.5rem 0.8rem;text-align:center;">
+            <div style="font-weight:700;color:var(--dark);">466 kWh</div>
+            <div style="font-size:0.7rem;color:#888;" data-de="Akku" data-en="Battery">Akku</div>
+          </div>
+          <span style="color:var(--red);font-weight:700;">×&nbsp;0,75</span>
+          <div style="background:var(--gray-light);border-radius:6px;padding:0.5rem 0.8rem;text-align:center;">
+            <div style="font-weight:700;color:var(--dark);">349,5 kWh</div>
+            <div style="font-size:0.7rem;color:#888;" data-de="− 25 % Reserve" data-en="− 25 % Reserve">− 25 % Reserve
+            </div>
+          </div>
+          <span style="color:var(--red);font-weight:700;">−&nbsp;23,9&nbsp;kWh</span>
+          <div style="background:var(--gray-light);border-radius:6px;padding:0.5rem 0.8rem;text-align:center;">
+            <div style="font-weight:700;color:var(--dark);">325,6 kWh</div>
+            <div style="font-size:0.7rem;color:#888;" data-de="nach Pumpe" data-en="after pump">nach Pumpe</div>
+          </div>
+          <span style="color:var(--red);font-weight:700;">÷&nbsp;1,10&nbsp;kWh/km</span>
+          <div style="background:var(--gray-light);border-radius:6px;padding:0.5rem 0.8rem;text-align:center;">
+            <div style="font-weight:700;color:var(--dark);">≈ 296 km</div>
+            <div style="font-size:0.7rem;color:#888;" data-de="max. Strecke" data-en="max. distance">max. Strecke</div>
+          </div>
+          <span style="color:var(--red);font-weight:700;">×&nbsp;0,85</span>
+          <div style="background:var(--red);border-radius:6px;padding:0.5rem 0.8rem;text-align:center;">
+            <div style="font-weight:900;color:#fff;font-size:1rem;">≈ 250 km</div>
+            <div style="font-size:0.7rem;color:rgba(255,255,255,0.8);" data-de="Ergebnis" data-en="Result">Ergebnis
+            </div>
+          </div>
+        </div>
+        <div style="font-size:0.8rem;color:#777;"
+          data-de="Selbst im ungünstigsten Winterfall sind bis zu 250 km tägliche Tourenlänge ohne Zwischenladen realistisch möglich."
+          data-en="Even in the worst-case winter scenario, up to 250 km of daily tour length is realistically achievable without intermediate charging.">
+          Selbst im ungünstigsten Winterfall sind bis zu 250 km tägliche Tourenlänge ohne Zwischenladen realistisch
+          möglich.</div>
+      </div>
+
+      <!-- Fazit -->
+      <div class="reveal" style="border:1px solid var(--gray);border-radius:12px;overflow:hidden;">
+        <div style="background:var(--red);padding:1.2rem 2rem;display:flex;align-items:center;gap:1rem;">
+          <span style="font-size:1.5rem;">✅</span>
+          <div>
+            <div
+              style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:0.1rem;"
+              data-de="Fazit" data-en="Conclusion">Fazit</div>
+            <div style="font-size:1.1rem;font-weight:800;color:#fff;"
+              data-de="Die Tour ist in allen Szenarien elektrisch machbar."
+              data-en="The tour is electrically feasible in all scenarios.">Die Tour ist in allen Szenarien elektrisch
+              machbar.</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+          <div style="padding:1.2rem 1.6rem;border-right:1px solid var(--gray);border-bottom:1px solid var(--gray);">
+            <div style="font-size:1.4rem;font-weight:900;color:var(--red);">177 km</div>
+            <div style="font-size:0.82rem;color:#555;margin-top:0.2rem;"
+              data-de="Testtour in allen Temperaturbereichen problemlos fahrbar"
+              data-en="Test tour feasible across all temperature ranges">Testtour in allen Temperaturbereichen
+              problemlos fahrbar</div>
+          </div>
+          <div style="padding:1.2rem 1.6rem;border-right:1px solid var(--gray);border-bottom:1px solid var(--gray);">
+            <div style="font-size:1.4rem;font-weight:900;color:var(--red);">53 %</div>
+            <div style="font-size:0.82rem;color:#555;margin-top:0.2rem;"
+              data-de="Akkukapazität verbleiben selbst bei −15 °C" data-en="Battery capacity remaining even at −15 °C">
+              Akkukapazität verbleiben selbst bei −15 °C</div>
+          </div>
+          <div style="padding:1.2rem 1.6rem;border-right:1px solid var(--gray);border-bottom:1px solid var(--gray);">
+            <div style="font-size:1.4rem;font-weight:900;color:var(--red);">61 %</div>
+            <div style="font-size:0.82rem;color:#555;margin-top:0.2rem;"
+              data-de="Restkapazität im Sommer und bei milden Temperaturen"
+              data-en="Remaining capacity in summer and mild temperatures">Restkapazität im Sommer und bei milden
+              Temperaturen</div>
+          </div>
+          <div style="padding:1.2rem 1.6rem;border-bottom:1px solid var(--gray);">
+            <div style="font-size:1.4rem;font-weight:900;color:var(--red);">250 km</div>
+            <div style="font-size:0.82rem;color:#555;margin-top:0.2rem;"
+              data-de="Maximale Tagesdistanz — auch im Worst Case (−15 °C)"
+              data-en="Maximum daily distance — even in worst case (−15 °C)">Maximale Tagesdistanz — auch im Worst Case
+              (−15 °C)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="section-inner">
+      <div class="section-tag reveal" data-de="Das Projektteam" data-en="The Project Team">Das Projektteam</div>
+      <h2 class="reveal" data-de="Wer steckt dahinter?" data-en="Who's Behind It?">Wer steckt dahinter?</h2>
+      <div class="red-divider reveal"></div>
+
+      <div class="reveal"
+        style="display:grid;grid-template-columns:400px 1fr;gap:2.5rem;align-items:center;margin-bottom:3rem;">
+        <div style="border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.12);">
+          <img src="team.jpg" alt="Leonhard Hauser und Cedrik Thalbauer vor dem MAN eTGS"
+            style="width:100%;display:block;">
+        </div>
+        <div>
+          <p style="font-size:1.05rem;font-weight:700;color:var(--dark);margin-bottom:0.5rem;">Leonhard Hauser &amp;
+            Cedrik Thalbauer</p>
+          <p style="font-size:0.875rem;color:var(--red);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;"
+            data-de="HTL Ried im Innkreis · Maschineningenieurwesen"
+            data-en="HTL Ried im Innkreis · Mechanical Engineering">HTL Ried im Innkreis · Maschineningenieurwesen</p>
+          <p style="font-size:0.9rem;color:#555;line-height:1.75;"
+            data-de="Zwei Abschlussklässler, die ihr Schulprojekt in echte Ingenieursarbeit verwandelt haben — von der Konzeptidee über die Konstruktion bis zum fertigen 1:1-Modell, direkt in der Werkstatt von Reder Transporte."
+            data-en="Two final-year students who turned their school project into real engineering work — from concept idea through construction to the finished 1:1 model, directly in the Reder Transporte workshop.">
+            Zwei Abschlussklässler, die ihr Schulprojekt in echte Ingenieursarbeit verwandelt haben — von der
+            Konzeptidee über die Konstruktion bis zum fertigen 1:1-Modell, direkt in der Werkstatt von Reder Transporte.
+          </p>
+        </div>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-avatar">LH</div>
+          <div class="team-name">Leonhard Hauser</div>
+          <div class="team-role" data-de="Projektkoordinator" data-en="Project Coordinator">Projektkoordinator</div>
+          <div class="team-desc"
+            data-de="Verantwortlich für Projektmanagement und Konstruktion. Wohnhaft in Kopfing im Innkreis."
+            data-en="Responsible for project management and construction. Based in Kopfing im Innkreis.">Verantwortlich
+            für Projektmanagement und Konstruktion. Wohnhaft in Kopfing im Innkreis.</div>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-avatar">CT</div>
+          <div class="team-name">Cedrik Thalbauer</div>
+          <div class="team-role" data-de="Projektpartner" data-en="Project Partner">Projektpartner</div>
+          <div class="team-desc" data-de="Verantwortlich für Montage und Tests. Wohnhaft in Ried im Innkreis."
+            data-en="Responsible for assembly and testing. Based in Ried im Innkreis.">Verantwortlich für Montage und
+            Tests. Wohnhaft in Ried im Innkreis.</div>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-avatar">MB</div>
+          <div class="team-name">DI Dr. Martin Baldinger</div>
+          <div class="team-role" data-de="HTL-Betreuer" data-en="HTL Supervisor">HTL-Betreuer</div>
+          <div class="team-desc"
+            data-de="MBA, MSc. Theoretische Beratung und Unterstützung des Projekts. HTL Ried im Innkreis."
+            data-en="MBA, MSc. Theoretical consultation and project support. HTL Ried im Innkreis.">MBA, MSc.
+            Theoretische Beratung und Unterstützung des Projekts. HTL Ried im Innkreis.</div>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-avatar">MH</div>
+          <div class="team-name">Prok. Martin Hauser</div>
+          <div class="team-role" data-de="Firmenbetreuer Reder" data-en="Reder Company Supervisor">Firmenbetreuer Reder
+          </div>
+          <div class="team-desc"
+            data-de="Konzeptidee und Beratung technischer Herausforderungen. Bereitstellung aller Firmenkontakte."
+            data-en="Concept idea and technical consulting. Providing all company contacts.">Konzeptidee und Beratung
+            technischer Herausforderungen. Bereitstellung aller Firmenkontakte.</div>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-avatar">KZ</div>
+          <div class="team-name">Karl Zauner</div>
+          <div class="team-role" data-de="Technischer Berater" data-en="Technical Advisor">Technischer Berater</div>
+          <div class="team-desc"
+            data-de="Technische Beratung und praktische Anwendungen. Werkstatt-Team Reder Transporte."
+            data-en="Technical consulting and practical applications. Workshop team at Reder Transporte.">Technische
+            Beratung und praktische Anwendungen. Werkstatt-Team Reder Transporte.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER -->
+  <section id="partner" class="bg-light">
+    <div class="section-inner">
+      <div class="section-tag reveal" data-de="Unterstützer &amp; Partner" data-en="Supporters &amp; Partners">
+        Unterstützer &amp; Partner</div>
+      <h2 class="reveal" data-de="Gemeinsam stark" data-en="Stronger Together">Gemeinsam stark</h2>
+      <div class="red-divider reveal"></div>
+      <p class="section-lead reveal"
+        data-de="Ohne die Unterstützung unserer Partner wäre dieses Projekt nicht möglich. Ein herzlicher Dank an alle Beteiligten."
+        data-en="Without the support of our partners, this project would not be possible. A heartfelt thank you to everyone involved.">
+        Ohne die Unterstützung unserer Partner wäre dieses Projekt nicht möglich. Ein herzlicher Dank an alle
+        Beteiligten.</p>
+
+      <!-- Reder Details aufklappbar -->
+      <details class="reder-details reveal" style="margin-bottom:1.5rem;">
+        <summary>
+          <div>
+            <div class="partner-name" style="margin-bottom:0.2rem;">Reder Transporte GmbH</div>
+            <div class="partner-role" style="font-weight:400;"
+              data-de="Praxispartner &amp; Auftraggeber — Bereitstellung des Fahrzeugs und 6-wöchiges Praktikum"
+              data-en="Industry Partner &amp; Client — Vehicle provision and 6-week internship">Praxispartner &amp;
+              Auftraggeber — Bereitstellung des Fahrzeugs und 6-wöchiges Praktikum</div>
+          </div>
+        </summary>
+        <div class="reder-details-body">
+          <p style="font-size:0.88rem;color:#555;line-height:1.7;margin-bottom:1.4rem;"
+            data-de="Ein oberösterreichisches Transportunternehmen mit über 120 Jahren Erfahrung — eines der größten Milchlogistikunternehmen der Region, mit eigener Fuhrparkwerkstatt und 24/7-Bereitschaft."
+            data-en="An Upper Austrian transport company with over 120 years of experience — one of the region's largest milk logistics companies, with its own fleet workshop and 24/7 on-call service.">
+            Ein oberösterreichisches Transportunternehmen mit über 120 Jahren Erfahrung — eines der größten
+            Milchlogistikunternehmen der Region, mit eigener Fuhrparkwerkstatt und 24/7-Bereitschaft.</p>
+          <div
+            style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin-bottom:1.4rem;">
+            <div style="background:var(--gray-light);border-radius:8px;padding:1rem 1.2rem;">
+              <div style="font-size:1.5rem;font-weight:900;color:var(--red);line-height:1;">370</div>
+              <div
+                style="font-size:0.72rem;color:#777;text-transform:uppercase;letter-spacing:0.07em;margin-top:0.2rem;"
+                data-de="Mitarbeiter" data-en="Employees">Mitarbeiter</div>
+            </div>
+            <div style="background:var(--gray-light);border-radius:8px;padding:1rem 1.2rem;">
+              <div style="font-size:1.5rem;font-weight:900;color:var(--red);line-height:1;">450</div>
+              <div
+                style="font-size:0.72rem;color:#777;text-transform:uppercase;letter-spacing:0.07em;margin-top:0.2rem;"
+                data-de="Fuhrparkeinheiten" data-en="Fleet Units">Fuhrparkeinheiten</div>
+            </div>
+            <div style="background:var(--gray-light);border-radius:8px;padding:1rem 1.2rem;">
+              <div style="font-size:1.5rem;font-weight:900;color:var(--red);line-height:1;">~54 Mio.</div>
+              <div
+                style="font-size:0.72rem;color:#777;text-transform:uppercase;letter-spacing:0.07em;margin-top:0.2rem;"
+                data-de="€ Jahresumsatz (½ Milchlogistik)" data-en="€ Annual Revenue (½ Milk Logistics)">€ Jahresumsatz
+                (½ Milchlogistik)</div>
+            </div>
+            <div style="background:var(--gray-light);border-radius:8px;padding:1rem 1.2rem;">
+              <div style="font-size:1.5rem;font-weight:900;color:var(--red);line-height:1;">&gt;600 Mio.</div>
+              <div
+                style="font-size:0.72rem;color:#777;text-transform:uppercase;letter-spacing:0.07em;margin-top:0.2rem;"
+                data-de="kg Milch pro Jahr" data-en="kg Milk per Year">kg Milch pro Jahr</div>
+            </div>
+            <div style="background:var(--gray-light);border-radius:8px;padding:1rem 1.2rem;">
+              <div style="font-size:1.5rem;font-weight:900;color:var(--red);line-height:1;">160.000 l</div>
+              <div
+                style="font-size:0.72rem;color:#777;text-transform:uppercase;letter-spacing:0.07em;margin-top:0.2rem;"
+                data-de="Milch gepumpt pro Fahrzeug &amp; Tag" data-en="Milk Pumped per Vehicle &amp; Day">Milch gepumpt
+                pro Fahrzeug &amp; Tag</div>
+            </div>
+            <div style="background:var(--gray-light);border-radius:8px;padding:1rem 1.2rem;">
+              <div style="font-size:1.5rem;font-weight:900;color:var(--red);line-height:1;">24/7</div>
+              <div
+                style="font-size:0.72rem;color:#777;text-transform:uppercase;letter-spacing:0.07em;margin-top:0.2rem;"
+                data-de="Bereitschaftsdienst" data-en="On-Call Service">Bereitschaftsdienst</div>
+            </div>
+          </div>
+          <div class="callout" style="margin-bottom:1rem;">
+            <strong data-de="Eigene Fuhrparkwerkstatt:" data-en="In-house Fleet Workshop:">Eigene
+              Fuhrparkwerkstatt:</strong>
+            <span
+              data-de=" 4 Spezialisten fix im Milchbereich — sämtliche Wartungs- und Umbauarbeiten werden intern durchgeführt."
+              data-en=" 4 specialists dedicated to milk logistics — all maintenance and conversion work is handled in-house.">
+              4 Spezialisten fix im Milchbereich — sämtliche Wartungs- und Umbauarbeiten werden intern
+              durchgeführt.</span>
+          </div>
+          <div style="font-size:0.82rem;color:#888;line-height:1.9;">
+            <div>📍 Wiener Bundesstraße 22, 4063 Hörsching</div>
+            <div>📞 +43 7221 / 72109 · ✉️ <a href="mailto:office@redertrans.at"
+                style="color:var(--red);">office@redertrans.at</a></div>
+            <div>👥 Günther &amp; Harald Reder</div>
+          </div>
+        </div>
+      </details>
+
+      <div class="partners-row reveal">
+        <div class="partner-item">
+          <div class="partner-name">ABB</div>
+          <div class="partner-role" data-de="Sponsoring der ACS 280 Frequenzumrichter — Kontakt: Philipp Haipl"
+            data-en="Sponsoring of ACS 280 frequency converters — Contact: Philipp Haipl">Sponsoring der ACS 280
+            Frequenzumrichter — Kontakt: Philipp Haipl</div>
+        </div>
+        <div class="partner-item">
+          <div class="partner-name">MAN Truck &amp; Bus</div>
+          <div class="partner-role"
+            data-de="Informationsbereitstellung &amp; Umsetzung der neuentwickelten Akkuanordnung (MAN eTGS)"
+            data-en="Information provision &amp; implementation of the newly developed battery arrangement (MAN eTGS)">
+            Informationsbereitstellung &amp; Umsetzung der neuentwickelten Akkuanordnung (MAN eTGS)</div>
+        </div>
+        <div class="partner-item">
+          <div class="partner-name">Firma Kreuzer</div>
+          <div class="partner-role"
+            data-de="Elektrische Sicherheit — Entwicklung und Fertigung der Sicherheitskästen (ECE-R100)"
+            data-en="Electrical safety — Development and manufacture of safety boxes (ECE-R100)">Elektrische Sicherheit
+            — Entwicklung und Fertigung der Sicherheitskästen (ECE-R100)</div>
+        </div>
+        <div class="partner-item">
+          <div class="partner-name">HTL Ried im Innkreis</div>
+          <div class="partner-role" data-de="Ausbildungsstätte — Maschineningenieurwesen, Agrar &amp; Umwelttechnik"
+            data-en="Educational institution — Mechanical Engineering, Agricultural &amp; Environmental Technology">
+            Ausbildungsstätte — Maschineningenieurwesen, Agrar &amp; Umwelttechnik</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:2rem;">
+        <div class="reveal"
+          style="background:#fff;border:1px solid var(--gray);border-top:4px solid var(--red);border-radius:8px;padding:1.6rem;">
+          <div
+            style="font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:0.6rem;"
+            data-de="Finalist" data-en="Finalist">Finalist</div>
+          <div style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:0.3rem;">Bosch Innovationspreis
+          </div>
+          <div style="font-size:0.82rem;color:#666;line-height:1.6;"
+            data-de="Österreichs größter HTL-Wettbewerb — seit 2008, 19. Auflage (2026). Finale und Preisverleihung am 11. Juni 2026 in Wien."
+            data-en="Austria's largest HTL competition — since 2008, 19th edition (2026). Final and award ceremony on 11 June 2026 in Vienna.">
+            Österreichs größter HTL-Wettbewerb — seit 2008, 19. Auflage (2026).</div>
+        </div>
+        <div class="reveal"
+          style="background:#fff;border:1px solid var(--gray);border-top:4px solid var(--red);border-radius:8px;padding:1.6rem;">
+          <div
+            style="font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:0.6rem;"
+            data-de="🏆 1. Platz" data-en="🏆 1st Place">🏆 1. Platz</div>
+          <div style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:0.3rem;">Jugend Innovativ</div>
+          <div style="font-size:0.82rem;color:#666;line-height:1.6;"
+            data-de="Kategorie Sustainability — Nationaler Schulwettbewerb der Austria Wirtschaftsservice (AWS). Ausgezeichnet für ökologische und wirtschaftliche Nachhaltigkeit in der Milchlogistik."
+            data-en="Category Sustainability — National school competition by Austria Wirtschaftsservice (AWS). Awarded for ecological and economic sustainability in milk logistics.">
+            Kategorie Sustainability — Nationaler Schulwettbewerb der Austria Wirtschaftsservice (AWS). Ausgezeichnet
+            für ökologische und wirtschaftliche Nachhaltigkeit in der Milchlogistik.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="max-width:700px;margin:0 auto;">
+      <div style="margin-bottom:0.8rem;font-size:1rem;">
+        <strong>E-Mobilität in der Milchlogistik — Elektrifizierung der Milchsammelpumpe</strong>
+      </div>
+      <div>
+        HTL Ried im Innkreis · Maschineningenieurwesen · Agrar &amp; Umwelttechnik · Schuljahr 2025/26
+      </div>
+      <div style="margin-top:0.5rem;">
+        Leonhard Hauser &amp; Cedrik Thalbauer · Betreuer: DI Dr. Martin Baldinger
+      </div>
+      <div style="margin-top:0.5rem;">
+        In Kooperation mit <a href="mailto:office@redertrans.at">Reder Transporte GmbH</a>, Hörsching
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── LANGUAGE SWITCHER ── */
+    let currentLang = 'de';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+      document.querySelectorAll('[data-de]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+
+    /* ── MOBILE NAV ── */
+    const navToggle = document.getElementById('nav-toggle');
+    const navList = document.getElementById('nav-list');
+    navToggle.addEventListener('click', () => {
+      navList.classList.toggle('open');
+    });
+    navList.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navList.classList.remove('open'));
+    });
+
+    /* ── SCROLL REVEAL ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── SMOOTH ACTIVE NAV ── */
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('nav a.nav-link');
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => {
+            a.style.background = '';
+            a.style.color = '';
+            if (a.getAttribute('href') === '#' + e.target.id) {
+              a.style.background = 'var(--red-light)';
+              a.style.color = 'var(--red)';
+            }
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => navObserver.observe(s));
+  </script>
+</body>
+
+</html>
